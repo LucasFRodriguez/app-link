@@ -1,9 +1,15 @@
 import './error.css';
 
+import {Link} from 'react-router-dom';
+
 export default function Error(){
     return(
-         <div>
-            <h1>ERROR 404</h1>
+         <div className='container-erro'>
+            <img src="error404.png" alt="Página não encontrada!" />
+            <h1>Página não encontrada!</h1>
+            <Link to="/">
+                Voltar para home
+            </Link>
          </div>
     )
 }
