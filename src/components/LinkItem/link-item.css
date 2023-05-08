@@ -7,7 +7,18 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
+    animation: slideY 1s;
 }
+
+@keyframes slideY{
+    from{
+        transform: translateY(90px);
+    }to{
+        transform: translateY(0);
+    }
+}
+
+
 
 .modal-header{
     display: flex;
