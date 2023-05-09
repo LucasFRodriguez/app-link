@@ -6,7 +6,7 @@ import { FiX, FiClipboard } from 'react-icons/fi';
 export default function LinkItem({ closeModal, content }){
 
     async function copyLink(){
-        await navigator.clipboard.writeText(content.link)
+        await navigator.clipboard.writeText(content.link);
         alert("URL Copiada com sucesso!");
     }
 
