@@ -3,14 +3,18 @@ import { FiArrowLeft, FiLink, FiTrash } from 'react-icons/fi'
 import './link.css';
 import { Link } from 'react-router-dom';
 
-import { getLinksSave } from '../../services/storeLinks'
+import { getLinksSave, deleteLink } from '../../services/storeLinks'
+import LinkItem from '../../components/LinkItem'
 
 
 export default function Links(){
 
   const [myLinks, setMyLinks] = useState([]);
+
   const [data, setData] = useState({});
   const [showModal, setShowModal] = useState(false);
+
+  const [emptyList, setEmptyList] = useState(false);
 
 
   useEffect(() => {
@@ -19,7 +23,7 @@ export default function Links(){
 
       if(result.lenght === 0){
         // lista vazia
-        console.log("LISTA VAZIA");
+        setEmptyList(true);
       }
 
       setMyLinks(result);
@@ -31,6 +35,20 @@ export default function Links(){
   }, [])
 
 
+    function handleOpenLink(link){
+      setData(link)
+      setShowModal(true);
+    }
+
+
+    function handleDelete(id){
+      const result = deleteLink(myLinks, id);
+
+      if(result.lenght === 0){
+        setEmptyList(true);
+      }
+      setMyLinks(result)
+    }
 
     return(
       <div className="links-container">
@@ -42,17 +60,30 @@ export default function Links(){
             <h1>Meus Links</h1>
         </div>
 
+        {emptyList && (
+          <div className="links-item">
+            <h2 className="empty-text">LISTA VAZIA...</h2>
+          </div>
+        )}
+
         {myLinks.map( link =>(
           <div key={link.id} className="links-item">
-              <button className="link">
+              <button className="link" onClick={ ()=> handleOpenLink(link) } >
                   <FiLink size={18} color="#fff" />
                     {link.long_url}
               </button>
-              <button className="link-delete">
+              <button className="link-delete" onClick={()=> handleDelete(link.id)}>
                   <FiTrash size={24} color="#ff5454"  />
               </button>
           </div>
         ) )}
+
+      {showModal && (
+        <LinkItem
+          closeModal={ ()=> setShowModal(false )}
+          content={data}
+        />
+      )}
 
 
       </div>
