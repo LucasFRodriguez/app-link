@@ -60,11 +60,11 @@ export default function Links(){
             <h1>Meus Links</h1>
         </div>
 
-        {emptyList && (
+        { emptyList && (
           <div className="links-item">
             <h2 className="empty-text">LISTA VAZIA...</h2>
           </div>
-        )}
+        )};
 
         {myLinks.map( link =>(
           <div key={link.id} className="links-item">
